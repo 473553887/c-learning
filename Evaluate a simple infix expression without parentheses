@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    double sum=0,temp1=0,temp2=0;
+    char a=0,x=0,y=0;
+    while(a!=-1){
+        a=getchar();
+        if(a<='9'&&a>='0'){
+            temp2=temp2*10+a-'0';
+        }//记录数字
+        else{
+            back:;//回到循环
+            if(x=='*'){
+                temp1*=temp2;
+                temp2=0;
+            }
+            else if(x=='/'){
+                temp1/=temp2;
+                temp2=0;
+            }
+            else if(x=='+'||x=='-'){
+                if(y==1){
+                    sum-=temp1;
+                }
+                else{
+                    sum+=temp1;
+                }
+                y=0;
+                temp1=temp2;
+                temp2=0;
+            }
+            else if(x==0){
+                temp1=temp2;
+                temp2=0;
+            }
+            if(x=='-'){
+                y=1;
+            }//记录减法
+            x=a;
+        }
+        if(a==-1){
+            goto end;//退出循环
+        }
+    }
+    goto back;//回到循环
+    end:;//退出循环
+    if(y==1){
+        sum-=temp1;
+    }
+    else{
+        sum+=temp1;
+    }//计算最后一个数
+    printf("%f",sum);
+    return 0;
+}
